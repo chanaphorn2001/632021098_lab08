@@ -11,55 +11,46 @@ class login extends StatefulWidget {
 class _LoginState extends State<login> {
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    TextEditingController _controller1 = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('LOGIN')),
       ),
-      body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _controller1,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Enter text';
-                  }
-                  return null;
+      body: SafeArea(
+        child: ListView(
+          children: [
+            TextFormField(
+              controller: email,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Enter text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                  labelText: "Username", hintText: "Enter Your Username"),
+            ),
+            TextFormField(
+              controller: password,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Enter text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                  labelText: "Password", hintText: "Enter Your Password"),
+            ),
+            ElevatedButton(onPressed: () {}, child: Text('Login')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Register()));
                 },
-                decoration: InputDecoration(
-                    labelText: "Username", hintText: "Enter Your Username"),
-              ),
-              TextFormField(
-                controller: _controller1,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Enter text';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                    labelText: "Password", hintText: "Enter Your Password"),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      print(_controller1.text);
-                    }
-                  },
-                  child: Text('Login')),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => register()));
-                  },
-                  child: Text('Register'))
-            ],
-          ),
+                child: Text('Register'))
+          ],
         ),
       ),
     );
